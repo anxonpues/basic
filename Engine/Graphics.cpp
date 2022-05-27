@@ -316,6 +316,25 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
+Color Graphics::GetPixel(int x, int y)
+{
+	assert(x >= 0);
+	assert(x < int(Graphics::ScreenWidth));
+	assert(y >= 0);
+	assert(y < int(Graphics::ScreenHeight));
+	Color c = pSysBuffer[Graphics::ScreenWidth * y + x];
+	
+	return c ;
+}
+
+void Graphics::VertLine(int x, int yo, int ys, unsigned char r, unsigned char g, unsigned char b)
+{
+	for (int j = yo; j < ys; j++)
+	{
+		PutPixel(x, j, r, g, b);
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception
