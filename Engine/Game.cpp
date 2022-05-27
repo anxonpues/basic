@@ -48,8 +48,52 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	for (int i = 0; i < sw; i++)
+	if(!init)
+		for (int i = 0; i < sw; i++)
+		{
+			int colnmb = (framecount / (262144)) % 12;
+			int res = (framecount / 262144) % 128;
+			red = 255 * (colnmb < 3 || colnmb >10) +
+				(255 - res) * (colnmb == 3) +
+				(128 - res) * (colnmb == 4) +
+				res * (colnmb == 9) +
+				(128 + res) * (colnmb == 10);
+			green = res * (colnmb == 1) +
+				(128 + res) * (colnmb == 2) +
+				255 * (colnmb >= 2 && colnmb <= 6) +
+				(255 - res) * (colnmb == 7) +
+				(128 - res) * (colnmb == 8);
+			blue = res * (colnmb == 5) +
+				(128 + res) * (colnmb == 6) +
+				255 * (colnmb >= 6 && colnmb <= 10) +
+				(255 - res) * (colnmb == 11) +
+				(128 - res) * (colnmb == 0);
+			//float retard = 1000.0f;
+			//while (retard > 0.0f)
+			//{
+			//	retard = retard - 0.1f;
+
+			//}
+			//	
+			framecount++;
+			x++;
+			gfx.VertLine(i, y, 100, red, green, blue);
+			if(i == (sw-1))
+				init = true;
+		}
+	
+	else 
 	{
+		for(int i=1;i<sw-1;i++)
+		{
+			Color  tc = gfx.GetPixel( i, y);
+			unsigned char r, g, b;
+			r = tc.GetR();
+			g = tc.GetG();
+			b = tc.GetB();
+			gfx.VertLine(i - 1, y, 100, r, g, b);
+			// framecount ?? 
+		}
 		int colnmb = (framecount / (262144)) % 12;
 		int res = (framecount / 262144) % 128;
 		red = 255 * (colnmb < 3 || colnmb >10) +
@@ -67,16 +111,9 @@ void Game::ComposeFrame()
 			255 * (colnmb >= 6 && colnmb <= 10) +
 			(255 - res) * (colnmb == 11) +
 			(128 - res) * (colnmb == 0);
-		float retard = 1000.0f;
-		while (retard > 0.0f)
-		{
-			retard = retard - 0.1f;
-
-		}
-			
+		gfx.VertLine(sw - 1, y, 100, red, green, blue);
 		framecount++;
-		x++;
-		gfx.VertLine(i, y, 100, red, green, blue);
+
 	}
 		
 	//if (!init) 
