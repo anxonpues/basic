@@ -37,19 +37,20 @@ private:
 	/********************************/
 	/*  User Functions              */
 
+
 	/********************************/
 private:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
-	int x;
-	int y;
+	
 	Color c;
 	int sh = Graphics::ScreenHeight;
 	int sw = Graphics::ScreenWidth;
 	bool init = false;
-	unsigned int framecount = 0;
-	unsigned char red = 0, green = 0, blue = 0;
+	unsigned int framen = 0;
+	unsigned char red = 0, green = 0, blue = 255;
+	Color vertlines[800] = { 0 };
 	/********************************/
 };

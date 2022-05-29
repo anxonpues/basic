@@ -335,6 +335,14 @@ void Graphics::VertLine(int x, int yo, int ys, unsigned char r, unsigned char g,
 	}
 }
 
+void Graphics::VertLine(int x, int yo, int ys, Color c)
+{
+	for (int j = yo; j < ys; j++)
+	{
+		PutPixel(x, j, c);
+	}
+}
+
 
 //////////////////////////////////////////////////
 //           Graphics Exception

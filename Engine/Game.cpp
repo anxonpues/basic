@@ -24,10 +24,9 @@
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
-	gfx( wnd ),
-	x( 0 ),
-	y( 0 ),
-	c(255,255,255)
+	gfx( wnd )
+	
+	
 {
 }
 
@@ -41,125 +40,70 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	
+		
+	while (framen < 800)
+	{
+		int line;
+		for (int i = 0; i < 255; i++)	// red stays up, green stays down and blue goes down
+		{
+			blue--;
+			framen++;
+			line = framen % 800;
+			vertlines[line] = blue | (green << 8) | (red << 16);
+			//pt(framen, line, vertlines[line]);
+		}
+		for (int i = 0; i < 255; i++) // now red stays up and rise green
+		{
+			green++;
+			framen++;
+			line = framen % 800;
+			vertlines[line] = blue | (green << 8) | (red << 16);
+			//pt(framen, line, vertlines[line]);
+		}
+		for (int i = 0; i < 255; i++) // now red downs to 0 while green stays up
+		{
+			red++;
+			framen++;
+			line = framen % 800;
+			vertlines[line] = blue | (green << 8) | (red << 16);
+			//pt(framen, line, vertlines[line]);
+		}
+		for (int i = 0; i < 255; i++) // red stays down and blue rises while green stays up
+		{
+			blue++;
+			framen++;
+			line = framen % 800;
+			vertlines[line] = blue | (green << 8) | (red << 16);
+			//pt(framen, line, vertlines[line]);
+		}
+		for (int i = 0; i < 255; i++) // red down green downs to 0 while blue stays up
+		{
+			green--;
+			framen++;
+			line = framen % 800;
+			vertlines[line] = blue | (green << 8) | (red << 16);
+			//pt(framen, line, vertlines[line]);
+		}
+		for (int i = 0; i < 255; i++)	// red rising up, green stays down blue stays up
+		{
+			red--;
+			framen++;
+			line = framen % 800;
+			vertlines[line] = blue | (green << 8) | (red << 16);
+			//pt(framen, line, vertlines[line]);
+		}
 
+	}
 
 }
 
 
 void Game::ComposeFrame()
 {
-	if(!init)
-		for (int i = 0; i < sw; i++)
-		{
-			int colnmb = (framecount / (262144)) % 12;
-			int res = (framecount / 262144) % 128;
-			red = 255 * (colnmb < 3 || colnmb >10) +
-				(255 - res) * (colnmb == 3) +
-				(128 - res) * (colnmb == 4) +
-				res * (colnmb == 9) +
-				(128 + res) * (colnmb == 10);
-			green = res * (colnmb == 1) +
-				(128 + res) * (colnmb == 2) +
-				255 * (colnmb >= 2 && colnmb <= 6) +
-				(255 - res) * (colnmb == 7) +
-				(128 - res) * (colnmb == 8);
-			blue = res * (colnmb == 5) +
-				(128 + res) * (colnmb == 6) +
-				255 * (colnmb >= 6 && colnmb <= 10) +
-				(255 - res) * (colnmb == 11) +
-				(128 - res) * (colnmb == 0);
-			//float retard = 1000.0f;
-			//while (retard > 0.0f)
-			//{
-			//	retard = retard - 0.1f;
-
-			//}
-			//	
-			framecount++;
-			x++;
-			gfx.VertLine(i, y, 100, red, green, blue);
-			if(i == (sw-1))
-				init = true;
-		}
-	
-	else 
+	for (int i = 0; i < 800; i++)
 	{
-		for(int i=1;i<sw-1;i++)
-		{
-			Color  tc = gfx.GetPixel( i, y);
-			unsigned char r, g, b;
-			r = tc.GetR();
-			g = tc.GetG();
-			b = tc.GetB();
-			gfx.VertLine(i - 1, y, 100, r, g, b);
-			// framecount ?? 
-		}
-		int colnmb = (framecount / (262144)) % 12;
-		int res = (framecount / 262144) % 128;
-		red = 255 * (colnmb < 3 || colnmb >10) +
-			(255 - res) * (colnmb == 3) +
-			(128 - res) * (colnmb == 4) +
-			res * (colnmb == 9) +
-			(128 + res) * (colnmb == 10);
-		green = res * (colnmb == 1) +
-			(128 + res) * (colnmb == 2) +
-			255 * (colnmb >= 2 && colnmb <= 6) +
-			(255 - res) * (colnmb == 7) +
-			(128 - res) * (colnmb == 8);
-		blue = res * (colnmb == 5) +
-			(128 + res) * (colnmb == 6) +
-			255 * (colnmb >= 6 && colnmb <= 10) +
-			(255 - res) * (colnmb == 11) +
-			(128 - res) * (colnmb == 0);
-		gfx.VertLine(sw - 1, y, 100, red, green, blue);
-		framecount++;
-
+		gfx.VertLine(i, 20, 80, vertlines[i]);
 	}
-		
-	//if (!init) 
-	//{
-	//	for (int j = 0; j < 80; j++)
-	//		for (int i = 0; i < 80; i++)
-	//			gfx.PutPixel(x + i, y + j, c);
-	//	for (int j = 00; j < 80; j++)
-	//		for (int i = 80; i < 160; i++)
-	//		{ 
-	//			gfx.PutPixel(x + i, y + j, 255,255,0);
-	//			Color  tc = gfx.GetPixel(x + i, y + j);
-	//			unsigned char r, g, b;
-	//			r = tc.GetR();
-	//			g = tc.GetG();
-	//			b = tc.GetB();
-
-	//		}
-	//	init = true;
-	//}
-	//else
-	//{
-	//	float  retard = 0;
-	//	for (int j = 0; j < 80; j++)
-	//		for (int i = 159; i >= 80; i--)
-	//		{ 
-	//			Color  tc = gfx.GetPixel(x + i, y + j);
-	//			unsigned char r, g, b;
-	//			r = tc.GetR();
-	//			g = tc.GetG();
-	//			b = tc.GetB();
-	//			for (int k = 0; k < 255; k++)
-	//			{
-	//				retard = retard + 0.0001f;
-	//				if (retard > 1000.0f)
-	//				{
-	//					retard = 0.0f;
-	//					gfx.PutPixel(x + i - 80, y + j, (r+k) % 127, (g+k) % 63, (b+k) % 31);
-	//					break;
-	//				}
-	//					
-	//				//gfx.PutPixel(x + i - 80, y + j, r%127, g%63, b%31);
-	//			}
-	//			
-	//		}
-	//	init = false;
-	//}
 }
 
