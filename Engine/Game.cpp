@@ -153,13 +153,13 @@ void Game::UpdateModel()
 
 void Game::ComposeFrame()
 {
-	for (int i = 0; i < 800; i++)
+	//for (int i = 0; i < 800; i++)
 	{
-		gfx.VertLine(i, 20, 100, vertlines[(framen)%(1524)]);
+		gfx.VertLine(framen % 1524, 20, 100, vertlines[(framen)%(1524)]);
 		//gfx.VertLine(i, 20, 100, vertlines[(framen) % (800)]);
-		float ret = 0.0f;
+		/*float ret = 0.0f;
 		while (ret < 333.0f)
-			ret = ret + 0.001f;
+			ret = ret + 0.001f;*/
 		framen++;
 		framen = framen & 0xfffffff;
 	}

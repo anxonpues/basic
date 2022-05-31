@@ -34,7 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs , INT )
 			theGame.shape();
 			while( wnd.ProcessMessage() )
 			{
-				float delay = 0.0f;
+			/*	float delay = 0.0f;
 				while (delay < 1785.0f)
 				{
 					delay = delay + 0.0001f;
@@ -44,7 +44,7 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs , INT )
 						flop++;
 					else
 						flop--;
-				}
+				}*/
 				theGame.Go();
 			}
 		}
