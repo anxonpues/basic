@@ -60,6 +60,7 @@ public:
 	Color  GetPixel(int x, int y);
 	void VertLine(int x, int yo, int ys, unsigned char r, unsigned char g, unsigned char b);
 	void VertLine(int x, int yo, int ys, Color c);
+	Color* stbuff(Color* pSysBuffer);
 
 	~Graphics();
 private:

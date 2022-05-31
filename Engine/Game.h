@@ -31,15 +31,14 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
+	void shape();
 private:
 	void ComposeFrame();
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-
-
 	/********************************/
-private:
+public:
 	MainWindow& wnd;
 	Graphics gfx;
 	/********************************/
@@ -50,7 +49,7 @@ private:
 	int sw = Graphics::ScreenWidth;
 	bool init = false;
 	unsigned int framen = 0;
-	unsigned char red = 0, green = 0, blue = 255;
-	Color vertlines[800] = { 0 };
+	unsigned char red = 0, green = 0, blue = 0;
+	Color vertlines[1524] = { 0 };
 	/********************************/
 };

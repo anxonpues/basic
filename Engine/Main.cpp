@@ -18,11 +18,12 @@
 *	You should have received a copy of the GNU General Public License					  *
 *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
 ******************************************************************************************/
+//#include <C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.19041.0\\um\\WinBase.h>
 #include "MainWindow.h"
 #include "Game.h"
 #include "ChiliException.h"
 
-int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
+int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE, LPWSTR pArgs , INT )
 {
 	try
 	{
@@ -30,8 +31,20 @@ int WINAPI wWinMain( HINSTANCE hInst,HINSTANCE,LPWSTR pArgs,INT )
 		try
 		{
 			Game theGame( wnd );
+			theGame.shape();
 			while( wnd.ProcessMessage() )
 			{
+				float delay = 0.0f;
+				while (delay < 1785.0f)
+				{
+					delay = delay + 0.0001f;
+					int flop = 8;
+					int flap = (int)delay % flop;
+					if (flap < 5)
+						flop++;
+					else
+						flop--;
+				}
 				theGame.Go();
 			}
 		}

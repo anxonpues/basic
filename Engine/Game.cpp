@@ -25,8 +25,6 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd )
-	
-	
 {
 }
 
@@ -38,72 +36,132 @@ void Game::Go()
 	gfx.EndFrame();
 }
 
-void Game::UpdateModel()
+void Game::shape()
 {
-	
-		
-	while (framen < 800)
+	int line = 0;
+	//blue = 0;
+	for (int i = 0; i < 255; i++)	
 	{
-		int line;
-		for (int i = 0; i < 255; i++)	// red stays up, green stays down and blue goes down
-		{
-			blue--;
-			framen++;
-			line = framen % 800;
-			vertlines[line] = blue | (green << 8) | (red << 16);
-			//pt(framen, line, vertlines[line]);
-		}
-		for (int i = 0; i < 255; i++) // now red stays up and rise green
-		{
-			green++;
-			framen++;
-			line = framen % 800;
-			vertlines[line] = blue | (green << 8) | (red << 16);
-			//pt(framen, line, vertlines[line]);
-		}
-		for (int i = 0; i < 255; i++) // now red downs to 0 while green stays up
-		{
-			red++;
-			framen++;
-			line = framen % 800;
-			vertlines[line] = blue | (green << 8) | (red << 16);
-			//pt(framen, line, vertlines[line]);
-		}
-		for (int i = 0; i < 255; i++) // red stays down and blue rises while green stays up
-		{
-			blue++;
-			framen++;
-			line = framen % 800;
-			vertlines[line] = blue | (green << 8) | (red << 16);
-			//pt(framen, line, vertlines[line]);
-		}
-		for (int i = 0; i < 255; i++) // red down green downs to 0 while blue stays up
-		{
-			green--;
-			framen++;
-			line = framen % 800;
-			vertlines[line] = blue | (green << 8) | (red << 16);
-			//pt(framen, line, vertlines[line]);
-		}
-		for (int i = 0; i < 255; i++)	// red rising up, green stays down blue stays up
-		{
-			red--;
-			framen++;
-			line = framen % 800;
-			vertlines[line] = blue | (green << 8) | (red << 16);
-			//pt(framen, line, vertlines[line]);
-		}
-
+		red = red + 1;
+		vertlines[line] = blue | (green << 8) | (red << 16);
+		line++;
 	}
-
+	line--;
+	for (int i = 0; i < 255; i++) 
+	{
+		green = green + 1;
+		vertlines[line] = blue | (green << 8) | (red << 16);
+		line++;
+	}
+	line--;
+	for (int i = 0; i < 255; i++) 
+	{
+		red = red -1;
+		vertlines[line] = blue | (green << 8) | (red << 16);
+		line++;
+	}
+	line--;
+	for (int i = 0; i < 255; i++) 
+	{
+		blue = blue + 1;
+		vertlines[line] = blue | (green << 8) | (red << 16);
+		line++;
+	}
+	line--;
+	for (int i = 0; i < 255; i++) 
+	{
+		green = green - 1;
+		vertlines[line] = blue | (green << 8) | (red << 16);
+		line++;
+	}
+	line--;
+	for (int i = 0; i < 255; i++)	
+	{
+		blue= blue - 1;
+		vertlines[line] = blue | (green << 8) | (red << 16);
+		line++;
+	}
+	line--;
+	if (line)
+		int flop = 4;
 }
 
+void Game::UpdateModel()
+{
+	//while (framen < 0xffff)
+	//{
+	//	int line;
+	//	for (int i = 0; i < 255; i++)	// red stays up, green stays down and blue goes down
+	//	{
+	//		blue--;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//	for (int i = 0; i < 255; i++) // now red stays up and rise green
+	//	{
+	//		green++;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//	for (int i = 0; i < 255; i++) // now red downs to 0 while green stays up
+	//	{
+	//		red++;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//	for (int i = 0; i < 255; i++) // red stays down and blue rises while green stays up
+	//	{
+	//		blue++;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//	for (int i = 0; i < 255; i++) // red down green downs to 0 while blue stays up
+	//	{
+	//		green--;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//	for (int i = 0; i < 255; i++)	// red rising up, green stays down blue stays up
+	//	{
+	//		red--;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//	for (int i = 0; i < 255; i++)	// red rising up, green stays down blue stays up
+	//	{
+	//		blue++;
+	//		framen++;
+	//		line = framen % 800;
+	//		vertlines[line] = blue | (green << 8) | (red << 16);
+	//		//pt(framen, line, vertlines[line]);
+	//	}
+	//}
+
+}
 
 void Game::ComposeFrame()
 {
 	for (int i = 0; i < 800; i++)
 	{
-		gfx.VertLine(i, 20, 80, vertlines[i]);
+		gfx.VertLine(i, 20, 100, vertlines[(framen)%(1524)]);
+		//gfx.VertLine(i, 20, 100, vertlines[(framen) % (800)]);
+		float ret = 0.0f;
+		while (ret < 333.0f)
+			ret = ret + 0.001f;
+		framen++;
+		framen = framen & 0xfffffff;
 	}
 }
 
