@@ -49,6 +49,7 @@ public:
 	int sw = Graphics::ScreenWidth;
 	bool init = false;
 	unsigned int framen = 0;
+	unsigned int lap = 0;
 	unsigned char red = 0, green = 0, blue = 0;
 	Color vertlines[1524] = { 0 };
 	/********************************/
